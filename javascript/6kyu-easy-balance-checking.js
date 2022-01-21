@@ -75,7 +75,7 @@ function balance(book) {
   }
   output.push(`Total expense  ${expense.toFixed(2)}\r\n`);
   output.push(`Average expense  ${(expense / (i - 1)).toFixed(2)}`);
-  console.log(output.join(""));
+  return output.join("");
 }
 balance(`1000.00!=
 
