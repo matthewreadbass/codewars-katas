@@ -26,7 +26,21 @@ travel(r, "NY 56432") --> "NY 56432:High Street Pollocksville/786"
 travel(r, "NY 5643") --> "NY 5643:/" */
 
 function travel(r, zipcode) {
-  // your code
+  const output = [];
+  const nums = [];
+  const addresses = r.split(",");
+  for (const each of addresses) {
+    const zip = each.slice(-8);
+    if (zip === zipcode) {
+      const index = each.indexOf(" ");
+      const address = each.slice(index + 1, -9);
+      output.push(`${address},`);
+      nums.push(`${each.slice(0, index)},`);
+    }
+  }
+  const finalAd = output.join("").slice(0, -1);
+  const finalNums = nums.join("").slice(0, -1);
+  console.log(`${zipcode}:${finalAd}/${finalNums}`);
 }
 
 const ad =
@@ -43,8 +57,9 @@ const ad =
   "2222 Tokyo Av. Tedmondville SW 43198,670 Paris St. Abbeville AA 45522,114 Surta Avenue Goodville GG 30655," +
   "2 Holy Grail Street Niagara Town ZP 32908,3 Main Rd. Bern AE 56210,77 Gordon St. Atlanta RE 13000";
 
+travel(ad, "");
 travel(ad, "AA 45522"); //, "AA 45522:Paris St. Abbeville,Paris St. Abbeville/67,670")
-travel(ad, "EX 34342"); //, "EX 34342:Pussy Cat Rd. Chicago,Pussy Cat Rd. Chicago/10,100")
-travel(ad, "EX 34345"); //, "EX 34345:Pussy Cat Rd. Chicago/100")
-travel(ad, "AA 45521"); //, "AA 45521:Paris bd. Abbeville,Paris St. Abbeville/674,67")
-travel(ad, "AE 56215"); //, "AE 56215:Main Al. Bern/320")
+// travel(ad, "EX 34342"); //, "EX 34342:Pussy Cat Rd. Chicago,Pussy Cat Rd. Chicago/10,100")
+// travel(ad, "EX 34345"); //, "EX 34345:Pussy Cat Rd. Chicago/100")
+// travel(ad, "AA 45521"); //, "AA 45521:Paris bd. Abbeville,Paris St. Abbeville/674,67")
+// travel(ad, "AE 56215"); //, "AE 56215:Main Al. Bern/320")
