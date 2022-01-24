@@ -17,7 +17,13 @@ You receive an array of integers (0 to 9), each of them is the number of a rat w
 Return the number of the bottle (1..1000) which is poisoned. */
 
 function find(rats) {
-  // return number of poisoned bottle
+  const binaryArr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  for (const index of rats) {
+    binaryArr[index] = 1;
+  }
+  const binaryStr = binaryArr.reverse().join("");
+  const output = parseInt(binaryStr, 2);
+  return output;
 }
 
 find([1]); //, 2);
