@@ -1,6 +1,6 @@
 "use strict";
 /*
-dataand data1 are two strings with rainfall records of a few cities for months from January to December.
+data and data1 are two strings with rainfall records of a few cities for months from January to December.
 The records of towns are separated by \n. The name of each town is followed by :.
 
 data and towns can be seen in "Your Test Cases:".
@@ -23,10 +23,52 @@ A ref: http://www.mathsisfun.com/data/standard-deviation.html
 data and data1 (can be named d0 and d1 depending on the language; see "Sample Tests:") are adapted from: http://www.worldclimate.com */
 
 function mean(town, strng) {
-  // Your code
+  if (!strng.includes(`${town}:`)) return -1.0;
+  let rainfall = 0;
+  let i = 0;
+  const towns = strng.split("\n");
+  for (const townData of towns) {
+    if (townData.includes(town)) {
+      const monthlyRainfall = townData
+        .slice(townData.indexOf(":") + 1)
+        .split(",");
+      for (const month of monthlyRainfall) {
+        const num = parseFloat(month.slice(month.indexOf(" ") + 1));
+        rainfall += num;
+        i++;
+      }
+    }
+  }
+  const mean = rainfall / i;
+  return mean;
 }
 function variance(town, strng) {
-  // Your code
+  if (!strng.includes(`${town}:`)) return -1.0;
+  let rainfall = 0;
+  let i = 0;
+  const rainArr = [];
+  let variance = 0;
+  const towns = strng.split("\n");
+  for (const townData of towns) {
+    if (townData.includes(town)) {
+      const monthlyRainfall = townData
+        .slice(townData.indexOf(":") + 1)
+        .split(",");
+      for (const month of monthlyRainfall) {
+        const num = parseFloat(month.slice(month.indexOf(" ") + 1));
+        rainArr.push(num);
+        rainfall += num;
+        i++;
+      }
+    }
+  }
+  const mean = rainfall / i;
+  for (const monthlyTotal of rainArr) {
+    variance += (monthlyTotal - mean) ** 2;
+  }
+  variance /= rainArr.length;
+  console.log(variance);
+  return variance;
 }
 
 const data =
