@@ -22,7 +22,12 @@ The maximum score will be 29. This number comes from bringing items 1, 3 and 4.
 
 Note: Your solution will have to be efficient as the running time of your algorithm will be put to a test. */
 
-function packBagpack(scores, weights, capacity) {}
+function packBagpack(scores, weights, capacity) {
+  let highScore = 0;
+  const items = {};
+  scores.forEach((scores, i) => (items[scores] = weights[i])); // key/value pairs -> scores = keys / weights = values
+  console.log(items);
+}
 
 packBagpack([15, 10, 9, 5], [1, 5, 3, 4], 8); //, 29)
-packBagpack([20, 5, 10, 40, 15, 25], [1, 2, 3, 8, 7, 4], 10); //, 60)
+// packBagpack([20, 5, 10, 40, 15, 25], [1, 2, 3, 8, 7, 4], 10); //, 60)
