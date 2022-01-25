@@ -24,7 +24,49 @@ Notes
 Codewars stdout doesn't print part of a string when between < and > */
 
 function phone(strng, num) {
-  // your code
+  const addresses = strng.split("\n");
+  let numOfNums = 0;
+  for (const each of addresses) {
+    if (each.includes(num)) numOfNums++;
+  }
+  if (numOfNums >= 2) {
+    return `Error => Too many people: ${num}`;
+  } else if (numOfNums === 0) {
+    return `Error => Not found: ${num}`;
+  } else {
+    let name;
+    const address = [];
+    // phone number
+    const phone = num;
+    for (const ad of addresses) {
+      if (ad.includes(num)) {
+        // name
+        const nameStartInd = ad.indexOf("<") + 1;
+        const nameEndInd = ad.indexOf(">");
+        name = ad.slice(nameStartInd, nameEndInd);
+        const entryArr = ad.split(" ");
+        // address
+        for (const word of entryArr) {
+          const conditions =
+            word.includes("+") ||
+            word.includes("<") ||
+            word.includes(">") ||
+            word === "";
+          if (!conditions) {
+            const chars = word.split("");
+            const wordFinal = [];
+            for (let char of chars) {
+              if (char === "_") char = " ";
+              wordFinal.push(char.match(/[a-zA-Z0-9-. ]/i));
+            }
+            address.push(wordFinal.join("").trim());
+          }
+        }
+        const adStr = address.join(" ");
+        console.log(`Phone => ${phone}, Name => ${name}, Address => ${adStr}`);
+      }
+    }
+  }
 }
 
 const dr =
@@ -39,10 +81,6 @@ const dr =
   "<C Powel> *+19-421-674-8974 Chateau des Fosses Strasbourg F-68000\n <Bernard Deltheil> +1-498-512-2222; Mount Av.  Eldorado\n" +
   "+1-099-500-8000 <Peter Crush> Labrador Bd.\n +1-931-512-4855 <William Saurin> Bison Street CQ-23071\n" +
   "<P Salinge> Main Street, +1-098-512-2222, Denve\n";
-
-function testing(actual, expected) {
-  Test.assertEquals(actual, expected);
-}
 
 phone(dr, "48-421-674-8974"); //, "Phone => 48-421-674-8974, Name => Anastasia, Address => Via Quirinal Roma")
 phone(dr, "1-921-512-2222"); //, "Phone => 1-921-512-2222, Name => Wilfrid Stevens, Address => Wild Street AA-67209")
